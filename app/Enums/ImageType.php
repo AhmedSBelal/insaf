@@ -4,6 +4,8 @@ namespace App\Enums;
 
 enum ImageType : string
 {
-    case Cover = 'cover';
-    case Details = 'details';
+
+    case CommercialRegister = 'CommercialRegister';
+    case HealthCertificate = 'HealthCertificate';
+    case Profile = 'Profile';
 }
