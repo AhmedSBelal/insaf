@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('url');
             $table->morphs('imageable');
-            $table->string('type')->default(\App\Enums\ImageType::Cover);
+            $table->string('type')->default(\App\Enums\ImageType::Profile);
             $table->timestamps();
         });
     }
