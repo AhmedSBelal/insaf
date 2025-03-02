@@ -27,6 +27,7 @@ class SupplierRegisterRequest extends FormRequest
             'location' => 'required|string|min:3|max:255',
             'phone_number' => 'required|string|min:3|max:255,unique:suppliers,phone_number',
             'commercial_register' => 'required|image|mimes:jpeg,png,jpg,heic|max:5120',
+            'health_certificate' => 'required|image|mimes:jpeg,png,jpg,heic|max:5120',
         ];
     }
 }

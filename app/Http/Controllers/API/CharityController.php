@@ -5,23 +5,22 @@ namespace App\Http\Controllers\API;
 use App\Enums\ImageType;
 use App\Enums\UserRoles;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\auth\SupplierRegisterRequest;
+use App\Http\Requests\auth\CharityRegisterRequest;
+use App\Services\CharityService;
 use App\Services\ImageService;
 use App\Services\LocationService;
-use App\Services\SupplierService;
 use App\Services\UserService;
 use App\Services\VerifyEmailService;
 use App\Traits\ApiResponse;
 use Illuminate\Support\Facades\Log;
 
-class SupplierController extends Controller
+class CharityController extends Controller
 {
-
     use ApiResponse;
     private $userService;
     private $imageService;
     private $locationService;
-    private $supplierService;
+    private $CharityService;
     private $verifyEmailService;
 
 
@@ -29,37 +28,33 @@ class SupplierController extends Controller
         UserService $userService,
         ImageService $imageService,
         LocationService $locationService,
-        SupplierService $supplierService, 
+        CharityService $CharityService, 
         VerifyEmailService $verifyEmailService
     ) {
         $this->userService = $userService;
         $this->imageService = $imageService;
         $this->locationService = $locationService;
-        $this->supplierService = $supplierService;
+        $this->CharityService = $CharityService;
         $this->verifyEmailService = $verifyEmailService;
     }
 
-    public function supplierRegister(SupplierRegisterRequest $request) {
+    public function charityRegister(CharityRegisterRequest $request) {
         try {
             if (!$request->hasFile('commercial_register')) {
                 return $this->failureResponse('Commercial Register Not Found');
             }
-            if (!$request->hasFile('health_certificate')) {
-                return $this->failureResponse('Health Certificate Not Found');
-            }
 
             $data = $request->validated();
             
-            $data['role'] = UserRoles::Supplier->value;
+            $data['role'] = UserRoles::Charity->value;
             $user = $this->userService->createUser($data);
 
             if (!$user) {
                 return $this->failureResponse('Something went wrong, try again later');
             }
-
-            $this->supplierService->registerSupplier($user, $data['phone_number']);
+            
+            $this->CharityService->registerCharity($user, $data['phone_number']);
             $this->imageService->storeImage($request->file('commercial_register'), $user, ImageType::CommercialRegister);
-            $this->imageService->storeImage($request->file('health_certificate'), $user, ImageType::HealthCertificate);
             $this->locationService->storeLocation($data['location'], $user);
             if (!$this->verifyEmailService->send($user)) {
                 return $this->failureResponse('Something went wrong, try again later');
@@ -70,5 +65,4 @@ class SupplierController extends Controller
             return $this->failureResponse('Something went wrong, try again later');
         }
     }
-
 }
