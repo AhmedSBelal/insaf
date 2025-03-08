@@ -3,12 +3,16 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -22,6 +26,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -47,17 +52,42 @@ class User extends Authenticatable
         ];
     }
 
+    public function generateVerificationCode()
+    {
+        $this->email_verification_code = rand(1000, 9999);
+        $this->save();
+    }
+
+    public function verifyEmailWithCode($code)
+    {
+        if ($this->email_verification_code === $code) {
+            $this->email_verified_at = now();
+            $this->email_verification_code = null;
+            $this->save();
+            return true;
+        }
+        return false;
+    }
+
     // relations
-    public function admins(): HasMany {
-        return $this->hasMany(Admin::class, 'admin_id', 'id');
+    public function admin(): HasOne {
+        return $this->hasOne(Admin::class, 'admin_id', 'id');
     }
 
-    public function suppliers(): HasMany {
-        return $this->hasMany(Supplier::class, 'supplier_id', 'id');
+    public function supplier(): HasOne {
+        return $this->hasOne(Supplier::class, 'supplier_id', 'id');
     }
 
-    public function charities(): HasMany {
-        return $this->hasMany(Charity::class, 'charity_id', 'id');
+    public function charitie(): HasOne {
+        return $this->hasOne(Charity::class, 'charity_id', 'id');
+    }
+
+    public function locations(): MorphMany {
+        return $this->morphMany(Location::class, 'locationable');
+    }
+
+    public function images(): MorphMany {
+        return $this->morphMany(Image::class, 'imageable');
     }
 
 }
