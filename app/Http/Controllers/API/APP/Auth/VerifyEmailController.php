@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\APP\Auth;
 
-use App\Http\Requests\Emails\Verifications\ResendVerifyCodeRequest;
-use App\Models\User;
-use App\Traits\ApiResponse;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Emails\Verifications\ResendVerifyCodeRequest;
 use App\Http\Requests\Emails\Verifications\VerifyCodeRequest;
+use App\Models\User;
 use App\Services\VerifyEmailService;
+use App\Traits\ApiResponse;
 
 class VerifyEmailController extends Controller
 {
@@ -19,7 +19,7 @@ class VerifyEmailController extends Controller
     public function __construct()
     {
         $this->verifyEmailService = new VerifyEmailService();
-    }  
+    }
 
     public function verify(VerifyCodeRequest $request)
     {

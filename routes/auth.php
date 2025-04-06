@@ -17,8 +17,3 @@ Route::post('/email/verify', [VerifyEmailController::class, 'verify'])->name('ve
 // login
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
-
-//
-//Route::post('/logout', function (){
-//    dd("Hello");
-//});

@@ -80,7 +80,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Supplier::class, 'supplier_id', 'id');
     }
 
-    public function charitie(): HasOne {
+    public function charity(): HasOne {
         return $this->hasOne(Charity::class, 'charity_id', 'id');
     }
 
