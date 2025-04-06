@@ -18,8 +18,8 @@ return [
     //     'passwords' => env('AUTH_PASSWORD_BROKER', 'users'),
     // ],
     'defaults' => [
-    'guard' => 'api',
-    'passwords' => 'users',
+        'guard' => 'api',
+        'passwords' => 'users',
     ],
 
 
