@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\VerifyEmailController;
+use App\Http\Controllers\Auth\AuthController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -13,4 +14,11 @@ Route::post('/email/resend', [VerifyEmailController::class, 'resend'])->name('ve
 Route::post('/email/verify', [VerifyEmailController::class, 'verify'])->name('verification.verify');
 
 
-// login 
+// login
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+
+//
+//Route::post('/logout', function (){
+//    dd("Hello");
+//});

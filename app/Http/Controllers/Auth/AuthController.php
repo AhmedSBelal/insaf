@@ -17,24 +17,24 @@ class AuthController extends Controller
             'password' => 'required',
             'remember' => 'boolean', // Optional: Add validation for "remember" field
         ]);
-    
+
         // Manually verify credentials using the User model
         $user = User::where('email', $request->email)->first();
-    
+
         if ($user && Hash::check($request->password, $user->password)) {
             // Set token expiration based on "remember me"
             $expiration = $request->boolean('remember') ? now()->addDays(30) : null; // 30 days for "remember me"
-    
+
             // Generate token with optional expiration
             $token = $user->createToken('auth-token', ['expires_at' => $expiration])->plainTextToken;
-    
+
             return response()->json([
                 'message' => 'Login successful',
                 'token' => $token,
                 'user' => $user,
             ]);
         }
-    
+
         // If authentication fails
         return response()->json(['message' => 'Invalid credentials'], 401);
     }    // Logout method
