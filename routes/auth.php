@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\API\VerifyEmailController;
+use App\Http\Controllers\API\APP\Auth\VerifyEmailController;
 use App\Http\Controllers\Auth\AuthController;
 
 use Illuminate\Support\Facades\Route;
