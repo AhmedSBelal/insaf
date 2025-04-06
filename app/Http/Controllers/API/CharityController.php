@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Enums\ImageType;
 use App\Enums\UserRoles;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\auth\CharityRegisterRequest;
+use App\Http\Requests\APP\Auth\CharityRegisterRequest;
 use App\Services\CharityService;
 use App\Services\ImageService;
 use App\Services\LocationService;
@@ -28,7 +28,7 @@ class CharityController extends Controller
         UserService $userService,
         ImageService $imageService,
         LocationService $locationService,
-        CharityService $CharityService, 
+        CharityService $CharityService,
         VerifyEmailService $verifyEmailService
     ) {
         $this->userService = $userService;
@@ -45,14 +45,14 @@ class CharityController extends Controller
             }
 
             $data = $request->validated();
-            
+
             $data['role'] = UserRoles::Charity->value;
             $user = $this->userService->createUser($data);
 
             if (!$user) {
                 return $this->failureResponse('Something went wrong, try again later');
             }
-            
+
             $this->CharityService->registerCharity($user, $data['phone_number']);
             $this->imageService->storeImage($request->file('commercial_register'), $user, ImageType::CommercialRegister);
             $this->locationService->storeLocation($data['location'], $user);

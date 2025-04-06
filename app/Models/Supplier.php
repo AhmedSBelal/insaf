@@ -25,4 +25,8 @@ class Supplier extends Model
         return $this->belongsTo(Admin::class, 'admin_id', 'id');
     }
 
+    public function surplus(): HasMany {
+        return $this->hasMany(Surplus::class);
+    }
+
 }

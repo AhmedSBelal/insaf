@@ -13,14 +13,15 @@ return new class extends Migration
     {
         Schema::create('surpluses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('supplier_id')->constrained('suppliers')->references('supplier_id')->onDelete('cascade');
-            $table->foreignId('admin_id')->constrained('admins')->references('admin_id')->onDelete('cascade');
-            $table->string('title');
+            $table->foreignId('supplier_id')->constrained('suppliers', 'supplier_id')->onDelete('cascade');
+            $table->foreignId('admin_id')->nullable()->constrained('admins', 'admin_id')->onDelete('cascade');
+            $table->foreignId('category_id')->constrained('categories', 'id')->cascadeOnDelete();
+            $table->string('name');
             $table->text('description');
             $table->integer('quantity');
             $table->unsignedInteger('price')->default(0);
             $table->date('expire_date');
-            $table->string('status')->default(\App\Enums\SurplusStatus::Pending);
+            $table->string('status')->default(\App\Enums\SurplusStatus::Approved);
             $table->timestamps();
         });
     }

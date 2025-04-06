@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\API\VerifyEmailController;
-
+use App\Http\Controllers\API\APP\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 // register
@@ -13,4 +12,4 @@ Route::post('/email/resend', [VerifyEmailController::class, 'resend'])->name('ve
 Route::post('/email/verify', [VerifyEmailController::class, 'verify'])->name('verification.verify');
 
 
-// login 
+// login
