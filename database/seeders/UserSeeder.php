@@ -17,47 +17,66 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+
         $superAdmin = User::create([
             'name' => 'SuperAdmin',
             'email' => 'superadmin@admin.admin',
             'email_verified_at' => now(),
             'password' => Hash::make('123456789'),
-            'role' => UserRoles::SuperAdmin->value,
         ]);
+        $superAdmin->admin()->create([
+            'id' => $superAdmin->id,
+            'type' => UserRoles::SuperAdmin->value,
+        ]);
+        $superAdmin->assignRole(UserRoles::SuperAdmin->value);
+
+
         $admin = User::create([
             'name' => 'Admin',
             'email' => 'admin@admin.admin',
             'email_verified_at' => now(),
             'password' => Hash::make('123456789'),
-            'role' => UserRoles::Admin->value,
         ]);
         $admin->admin()->create([
+            'id' => $admin->id,
             'type' => UserRoles::Admin->value,
         ]);
+        $admin->assignRole(UserRoles::Admin->value);
+
+
         $charity = User::create([
             'name' => 'Charity',
             'email' => 'charity@charity.charity',
             'email_verified_at' => now(),
             'password' => Hash::make('123456789'),
-            'role' => UserRoles::Charity->value,
         ]);
         $charity->charity()->create([
+            'id' => $charity->id,
             'admin_id' => $admin->id,
             'phone_number' => '0123456789',
         ]);
+        $charity->assignRole(UserRoles::Charity->value);
+
 
         $suppler = User::create([
             'name' => 'Suppler',
             'email' => 'suppler@suppler.suppler',
             'email_verified_at' => now(),
             'password' => Hash::make('123456789'),
-            'role' => UserRoles::Supplier->value,
         ]);
         $suppler->supplier()->create([
+            'id' => $suppler->id,
             'admin_id' => $admin->id,
             'phone_number' => '0123456789',
             'status' => SupplierStatus::Approved->value,
         ]);
+        $suppler->assignRole(UserRoles::Supplier->value);
+
+
+        $roles = [UserRoles::Admin->value, UserRoles::Supplier->value, UserRoles::Charity->value];
+        User::factory(10)->create()->each(function ($user) use ($roles) {
+            $user->assignRole(fake()->randomElement($roles));
+        });
 
     }
 }

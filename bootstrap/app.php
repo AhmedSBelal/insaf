@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Middleware\CharityApprovedMiddleware;
+use App\Http\Middleware\SupplierApprovedMiddleware;
 use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -14,7 +16,11 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->alias(aliases: [
+            'charity.approve' => CharityApprovedMiddleware::class,
+            'supplier.approve' => SupplierApprovedMiddleware::class,
+            'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

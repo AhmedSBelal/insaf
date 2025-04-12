@@ -13,10 +13,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('suppliers', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('supplier_id')->unique()->constrained('users', 'id')->onDelete('cascade')->unique();
             $table->foreignId('admin_id')->nullable()->constrained('admins', 'admin_id')->onDelete('cascade');
             $table->string('status')->default(\App\Enums\SupplierStatus::Pending);
             $table->string('phone_number');
+            $table->string('type')->nullable();
             $table->timestamps();
         });
     }

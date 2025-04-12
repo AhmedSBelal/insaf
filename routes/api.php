@@ -5,7 +5,8 @@ use App\Http\Controllers\API\APP\SurplusController;
 use Illuminate\Support\Facades\Route;
 
 include __DIR__ . '/auth.php'; // Keep the auth routes
-include __DIR__ . '/supplier.php';
+include __DIR__ . '/supplier_dashboard.php';
+include __DIR__ . '/admin_dashboard.php';
 
 Route::resource('surpluses', SurplusController::class)->only(['index', 'show']);
 

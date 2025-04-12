@@ -10,7 +10,11 @@ class Image extends Model
 
     protected $fillable = [
         'url',
-        'type'
+        'type',
+        'imageable_id',
+        'imageable_type',
+        'created_at',
+        'updated_at',
     ];
 
     // relations
