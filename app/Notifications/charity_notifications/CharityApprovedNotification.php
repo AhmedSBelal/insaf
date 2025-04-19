@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Notifications;
+namespace App\Notifications\charity_notifications;
 
+use App\Enums\NotificationType;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class SupplierRejectedNotification extends Notification
+class CharityApprovedNotification extends Notification
 {
     use Queueable;
 
@@ -31,21 +32,17 @@ class SupplierRejectedNotification extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-//        return (new MailMessage)
-//            ->subject('Your Subject Here')
-//            ->markdown('emails.supplier.' . strtolower($this->data['new_status']), [
-//                'data' => $this->data
-//            ]);
         return (new MailMessage)
-            ->subject('Your Supplier Application Status')
-            ->greeting("Dear {$this->data['supplier_name']},")
-            ->line("We regret to inform you that your supplier application has been rejected.")
+            ->subject('Your Charity Account Has Been Approved')
+            ->greeting("Congratulations {$this->data['charity_name']}!")
+            ->line("We're pleased to inform you that your charity account has been approved.")
             ->line("**Old Status:** {$this->data['old_status']}")
             ->line("**New Status:** {$this->data['new_status']}")
-            ->line('**Reason for rejection:**')
-            ->line($this->data['reason'] ?? 'Please contact our support team for details.')
-            ->action('Review Application Guidelines', url('/supplier/guidelines'))
-            ->line('You may reapply after addressing the issues mentioned.');
+            ->line('You can now start listing your surpluses.')
+            ->line('If you have any questions, please contact our support team.');
+            // ->action('Discover our surpluses', url('/'))
+            // ->line('You can now start listing your products and services.')
+            // ->line('If you have any questions, please contact our support team.');
     }
 
     /**
@@ -56,8 +53,8 @@ class SupplierRejectedNotification extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'type' => 'supplier_rejected',
-            'message' => 'Your supplier application has been rejected',
+            'type' => NotificationType::CharityApproved->value,
+            'message' => 'Your charity account has been approved',
             'data' => $this->data
         ];
     }

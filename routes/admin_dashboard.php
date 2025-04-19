@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use \App\Enums\UserRoles;
 use \App\Http\Controllers\API\Dashboard\SupplierController;
+use \App\Http\Controllers\API\Dashboard\CharityController;
 
 Route::prefix('admin')
     ->middleware([
@@ -13,4 +14,5 @@ Route::prefix('admin')
     ->name('admin.')
     ->group(function () {
         Route::resource('suppliers', SupplierController::class);
+        Route::resource('charities', CharityController::class);
     });

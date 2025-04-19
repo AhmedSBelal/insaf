@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Notifications;
+namespace App\Notifications\supplier_notifications;
 
+use App\Enums\NotificationType;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -50,7 +51,7 @@ class SupplierApprovedNotification extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'type' => 'supplier_approved',
+            'type' => NotificationType::SupplierApproved->value,
             'message' => 'Your supplier account has been approved',
             'data' => $this->data
         ];

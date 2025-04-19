@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Notifications;
+namespace App\Notifications\charity_notifications;
 
+use App\Enums\NotificationType;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class SupplierPendingNotification extends Notification
+class CharityPendingNotification extends Notification
 {
     use Queueable;
 
@@ -32,9 +33,9 @@ class SupplierPendingNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('Supplier Application Under Review')
-            ->greeting("Hello {$this->data['supplier_name']},")
-            ->line("Your supplier application status has been updated to Pending.")
+            ->subject('Charity Application Under Review')
+            ->greeting("Hello {$this->data['charity_name']},")
+            ->line("Your charity application status has been updated to Pending.")
             ->line("**Previous Status:** {$this->data['old_status']}")
             ->line("**Current Status:** {$this->data['new_status']}")
             ->line('Our team is currently reviewing your application.')
@@ -51,8 +52,8 @@ class SupplierPendingNotification extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'type' => 'supplier_pending',
-            'message' => 'Your supplier application is under review',
+            'type' => NotificationType::CharityPending->value,
+            'message' => 'Your charity application is under review',
             'data' => $this->data
         ];
     }

@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Notifications;
+namespace App\Notifications\charity_notifications;
 
+use App\Enums\NotificationType;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class SupplierAccountDeletedNotification extends Notification
+class CharityAccountDeletedNotification extends Notification
 {
     use Queueable;
 
@@ -32,13 +33,13 @@ class SupplierAccountDeletedNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('Your Supplier Account Has Been Removed')
+            ->subject('Your Charity Account Has Been Removed')
             ->greeting("Hello {$this->data['name']},")
-            ->line("We're writing to inform you that your supplier account has been removed from our system.")
+            ->line("We're writing to inform you that your charity account has been removed from our system.")
             ->line("**Account Deletion Date:** {$this->data['deletion_date']}")
             ->line("**Reason:** {$this->data['reason']}")
             ->line("If this was a mistake or you have any questions, please contact our support team.")
-            ->action('Contact Support', url('/contact'))
+            ->action('Contact Charity Support', url('/contact'))
             ->line('Thank you for being part of our platform.');
     }
 
@@ -50,8 +51,8 @@ class SupplierAccountDeletedNotification extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'type' => 'supplier_account_deleted',
-            'message' => 'Your supplier account has been removed',
+            'type' => NotificationType::CharityAccountDeleted->value,
+            'message' => 'Your charity account has been removed',
             'data' => $this->data
         ];
     }

@@ -12,10 +12,10 @@ use App\Http\Resources\AdminDashboard\suppliers\SupplierCollection;
 use App\Http\Resources\AdminDashboard\suppliers\SupplierResource;
 use App\Models\Supplier;
 use App\Models\User;
-use App\Notifications\SupplierAccountDeletedNotification;
-use App\Notifications\SupplierApprovedNotification;
-use App\Notifications\SupplierPendingNotification;
-use App\Notifications\SupplierRejectedNotification;
+use App\Notifications\supplier_notifications\SupplierAccountDeletedNotification;
+use App\Notifications\supplier_notifications\SupplierApprovedNotification;
+use App\Notifications\supplier_notifications\SupplierPendingNotification;
+use App\Notifications\supplier_notifications\SupplierRejectedNotification;
 use App\Services\ImageService;
 use App\Traits\ApiResponse;
 use Illuminate\Support\Facades\Auth;
@@ -115,15 +115,15 @@ class SupplierController extends Controller
             if (!$supplier) {
                 return $this->failureResponse('Supplier not found', 404);
             }
+            ImageService::deleteCommercialRegisters($supplier->supplier);
+            ImageService::deleteHealthCertificate($supplier->supplier);
+            $supplier->delete();
             $supplier->notify(new SupplierAccountDeletedNotification([
                 'name' => $supplier->name,
                 'email' => $supplier->email,
                 'deletion_date' => now()->format('F j, Y H:i'),
                 'reason' => request()->input('reason', 'Account cleanup')
             ]));
-            ImageService::deleteCommercialRegisters($supplier->supplier);
-            ImageService::deleteHealthCertificate($supplier->supplier);
-            $supplier->delete();
             DB::commit();
             return $this->successResponse([], 'Supplier deleted successfully.');
         } catch (\Exception $exception) {

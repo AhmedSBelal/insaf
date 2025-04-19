@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use App\Enums\CharityStatus;
+use App\Enums\ImageType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Charity extends Model
 {
@@ -31,13 +33,34 @@ class Charity extends Model
         return $this->morphMany(Location::class, 'locationable');
     }
 
-    public function commercialRegisters() : MorphMany{
-        return $this->morphMany(Image::class, 'imageable');
+    public function commercialRegisters() : MorphOne{
+        return $this->morphOne(Image::class, 'imageable')
+            ->where('type', ImageType::CommercialRegister->value);
     }
 
     // methods
     public function isApproved() : bool {
         return $this->status == CharityStatus::Approved->value ?? false;
+    }
+
+    public static function charitiesSearch($filter) {
+
+        $query = self::with('info');
+
+        // Filter on Supplier table (direct attributes)
+        if (isset($filter['status'])) {
+            $query->where('status', $filter['status']);
+        }
+
+        // Filter on related info table
+//        if (isset($filters['status'])) {
+//            $query->whereHas('info', fn($q) =>
+//            $q->where('status', $filters['status'])
+//            );
+//        }
+
+        return $query->paginate(16);
+
     }
 
 }
