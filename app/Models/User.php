@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Testing\Fluent\Concerns\Has;
@@ -29,7 +30,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
-        'role',
     ];
 
     /**
@@ -89,8 +89,12 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->morphMany(Location::class, 'locationable');
     }
 
-    public function images(): MorphMany {
-        return $this->morphMany(Image::class, 'imageable');
+    public function profileImage(): MorphOne {
+        return $this->morphOne(Image::class, 'imageable');
+    }
+
+    public function notications(): MorphMany {
+        return $this->morphMany(Notification::class, 'notifiable');
     }
 
     /**

@@ -10,6 +10,7 @@ class Admin extends Model
 {
 
     protected $fillable = [
+        'id',
         'admin_id',
         'type',
     ];

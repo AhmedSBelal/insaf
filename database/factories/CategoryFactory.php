@@ -20,9 +20,8 @@ class CategoryFactory extends Factory
      */
     public function definition(): array
     {
-        $admin = User::where('role', 'admin')->first();
         return [
-            'admin_id' => $admin->id,
+            'admin_id' => 2,
             'name' => $this->faker->word(),
             'description' => $this->faker->sentence(),
         ];

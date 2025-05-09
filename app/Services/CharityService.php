@@ -9,7 +9,8 @@ class CharityService
 
     public function registerCharity($user, $phoneNumber)
     {
-        return $user->supplier()->create([
+        return $user->charity()->create([
+            'id'           => $user->id,
             'charity_id'   => $user->id,
             'admin_id'     => null,
             'phone_number' => $phoneNumber,

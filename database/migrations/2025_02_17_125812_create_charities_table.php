@@ -12,9 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('charities', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('charity_id')->unique()->constrained('users', 'id')->onDelete('cascade')->unique();
-            $table->foreignId('admin_id')->constrained('admins', 'admin_id')->onDelete('cascade');
+            $table->foreignId('admin_id')->nullable()->constrained('admins', 'admin_id')->onDelete('cascade');
             $table->string('phone_number');
+            $table->string('status')->default(\App\Enums\CharityStatus::Pending->value);
             $table->timestamps();
         });
     }
