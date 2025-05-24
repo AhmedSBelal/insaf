@@ -18,4 +18,7 @@ enum NotificationType: string
 
     // Admin Notifications
     case AdminAccountDeleted = 'admin_account_deleted';
+
+    // Contact Notifications
+    case MessageReceived = 'message_received';
 }
