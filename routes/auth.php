@@ -17,3 +17,8 @@ Route::post('/email/verify', [VerifyEmailController::class, 'verify'])->name('ve
 // login
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+
+
+// forget
+Route::post('/forget-password', \App\Http\Controllers\API\APP\Auth\ForgetPassword\ForgotPasswordController::class);
+Route::post('/reset-password', \App\Http\Controllers\API\APP\Auth\ForgetPassword\CodeCheckController::class);
