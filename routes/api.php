@@ -32,4 +32,5 @@ Route::put('/cart/items/{item}', [CartController::class, 'updateItem']);
 Route::delete('/cart/items/{item}', [CartController::class, 'removeItem']);
 Route::post('/cart/merge', [CartController::class, 'mergeCart'])->middleware('auth:sanctum');
 
-
+// Checkout route
+Route::post('/checkout', [\App\Http\Controllers\API\APP\CheckoutController::class, 'checkout'])->middleware('auth:sanctum');

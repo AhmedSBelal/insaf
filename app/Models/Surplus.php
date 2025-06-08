@@ -51,6 +51,18 @@ class Surplus extends Model
         return $this->morphOne(Location::class, 'locationable');
     }
 
+    public function cartItems()
+    {
+        return $this->hasMany(CartItem::class);
+    }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'order_surplus')
+            ->withPivot(['quantity', 'price', 'surplus_name'])
+            ->withTimestamps();
+    }
+
 
     // methods
 

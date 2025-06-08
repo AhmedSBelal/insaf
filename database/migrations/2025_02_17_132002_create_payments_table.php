@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('trnasaction_id')->nullable();
+            $table->unsignedBigInteger('transaction_id')->nullable();
             $table->unsignedBigInteger('amount');
             $table->string('payment_method')->nullable()->default(\App\Enums\PaymentMethodes::Stripe);
+            $table->string('status')->default(\App\Enums\PaymentStatus::Pending);
             $table->timestamps();
         });
     }
