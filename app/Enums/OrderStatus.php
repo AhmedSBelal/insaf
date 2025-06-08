@@ -10,4 +10,5 @@ enum OrderStatus : string
     case Completed = 'Completed';
     case Cancelled = 'Cancelled';
     case Refunded = 'Refunded';
+    const Confirmed = 'Confirmed';
 }

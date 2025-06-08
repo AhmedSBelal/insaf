@@ -3,6 +3,8 @@
 use App\Http\Controllers\API\APP\CartController;
 use App\Http\Controllers\API\APP\CategoryController;
 use App\Http\Controllers\API\APP\ContactController;
+use App\Http\Controllers\API\APP\PaymentController;
+use App\Http\Controllers\API\APP\StripeWebhookController;
 use App\Http\Controllers\API\APP\SurplusController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,3 +36,9 @@ Route::post('/cart/merge', [CartController::class, 'mergeCart'])->middleware('au
 
 // Checkout route
 Route::post('/checkout', [\App\Http\Controllers\API\APP\CheckoutController::class, 'checkout'])->middleware('auth:sanctum');
+
+// payment
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/payment/intent', [PaymentController::class, 'createStripeIntent']);
+});
+Route::post('/stripe/webhook', [StripeWebhookController::class, 'handle']);
