@@ -13,8 +13,19 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('charity_id')->constrained('charities')->references('charity_id')->cascadeOnDelete();
-            $table->foreignId('payment_id')->constrained('payments')->references('id')->cascadeOnDelete();
+            $table->foreignId('charity_id')
+                ->constrained('charities')
+                ->references('charity_id')
+                ->cascadeOnDelete();
+            $table->foreignId('supplier_id')
+                ->constrained('suppliers')
+                ->cascadeOnDelete();
+            $table->foreignId('payment_id')
+                ->constrained('payments')
+                ->references('id')
+                ->cascadeOnDelete();
+            $table->string('payment_status')
+                ->default(\App\Enums\PaymentStatus::Pending);
             $table->unsignedBigInteger('total_price')->default(0);
             $table->string('status')->default(\App\Enums\OrderStatus::Pending);
             $table->timestamps();
