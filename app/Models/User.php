@@ -4,9 +4,10 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Enums\ImageType;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
@@ -90,11 +91,26 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     public function profileImage(): MorphOne {
-        return $this->morphOne(Image::class, 'imageable');
+        return $this->morphOne(Image::class, 'imageable')
+            ->where('type', ImageType::Profile->value);
     }
 
     public function notications(): MorphMany {
         return $this->morphMany(Notification::class, 'notifiable');
+    }
+
+    // accessors
+    protected function profileImageUrl() : Attribute {
+        return Attribute::make(
+            get: function () {
+                if (! $this->relationLoaded('profileImage')) {
+                    $this->load('profileImage');
+                }
+                return $this->profileImage?->url
+                    ? asset('storage/' . $this->profileImage->url)
+                    : asset('defaults/images/profile_image.jpg');
+            },
+        )->shouldCache();
     }
 
     /**

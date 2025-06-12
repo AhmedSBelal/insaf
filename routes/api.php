@@ -42,3 +42,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/payment/intent', [PaymentController::class, 'createStripeIntent']);
 });
 Route::post('/stripe/webhook', [StripeWebhookController::class, 'handle']);
+
+// profile
+Route::post('/profile', [\App\Http\Controllers\API\APP\ProfileController::class, 'update']);
