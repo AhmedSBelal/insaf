@@ -14,12 +14,14 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('charity_id')
+                ->nullable()
                 ->constrained('charities')
                 ->references('charity_id')
-                ->cascadeOnDelete();
+                ->onDelete('set null');
             $table->foreignId('supplier_id')
+                ->nullable()
                 ->constrained('suppliers')
-                ->cascadeOnDelete();
+                ->onDelete('set null');
             $table->foreignId('payment_id')
                 ->constrained('payments')
                 ->references('id')

@@ -52,3 +52,6 @@ Route::prefix('notification-settings')->middleware('auth:sanctum')->group(functi
     Route::get('/', [NotificationSettingController::class, 'show']);
     Route::put('/', [NotificationSettingController::class, 'update']);
 });
+
+// delete account
+Route::delete('delete-account', [App\Http\Controllers\API\APP\DeleteAccountController::class, 'destroy'])->middleware('auth:sanctum');
