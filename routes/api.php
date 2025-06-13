@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\APP\CartController;
 use App\Http\Controllers\API\APP\CategoryController;
 use App\Http\Controllers\API\APP\ContactController;
+use App\Http\Controllers\API\APP\NotificationSettingController;
 use App\Http\Controllers\API\APP\PaymentController;
 use App\Http\Controllers\API\APP\StripeWebhookController;
 use App\Http\Controllers\API\APP\SurplusController;
@@ -44,4 +45,13 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::post('/stripe/webhook', [StripeWebhookController::class, 'handle']);
 
 // profile
-Route::post('/profile', [\App\Http\Controllers\API\APP\ProfileController::class, 'update']);
+Route::post('/profile', [\App\Http\Controllers\API\APP\ProfileController::class, 'update'])->middleware('auth:sanctum');
+
+// notification settings
+Route::prefix('notification-settings')->middleware('auth:sanctum')->group(function () {
+    Route::get('/', [NotificationSettingController::class, 'show']);
+    Route::put('/', [NotificationSettingController::class, 'update']);
+});
+
+// delete account
+Route::delete('delete-account', [App\Http\Controllers\API\APP\DeleteAccountController::class, 'destroy'])->middleware('auth:sanctum');
