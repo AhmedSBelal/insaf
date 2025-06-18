@@ -20,7 +20,7 @@ class ImageService
         ]);
     }
 
-    public static function storeCommercialRegisters($file, Charity $user) {
+    public static function storeCommercialRegisters($file, $user) {
         $path = $file->store('images', 'public');
         return $user->commercialRegisters()->create([
             'url' => $path,
