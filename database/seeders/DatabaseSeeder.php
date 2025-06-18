@@ -21,13 +21,13 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            // RolesSeeder::class,
-            // PermissionsSeeder::class,
-            // AssignPermissionsToRoles::class,
-            UserSeeder::class,
-            // CategoriesSeeder::class,
-            // SurplusesSeeder::class,
-            
+             RolesSeeder::class,
+             PermissionsSeeder::class,
+             AssignPermissionsToRoles::class,
+             UserSeeder::class,
+             CategoriesSeeder::class,
+             SurplusesSeeder::class,
+
         ]);
 
         // Charity::create([

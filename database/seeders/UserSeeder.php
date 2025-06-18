@@ -47,45 +47,45 @@ class UserSeeder extends Seeder
         $admin->assignRole(UserRoles::Admin->value);
 
 
-        // $charity = User::create([
-        //     'name' => 'Charity',
-        //     "phone" => "0123456789",
+         $charity = User::create([
+             'name' => 'Charity',
+             "phone" => "0123456789",
 
-        //     'email' => 'charity@charity.charity',
-        //     'email_verified_at' => now(),
-        //     'password' => Hash::make('123456789'),
-        // ]);
-        // $charity->charity()->create([
-        //     'id' => $charity->id,
-        //     'admin_id' => $admin->id,
-        //     'phone_number' => '0123456789',
-        // ]);
-        // $charity->assignRole(UserRoles::Charity->value);
-
-
-//         $suppler = User::create([
-//             'name' => 'Supplier',
-//             "phone" => "0123456789",
-
-//             'email' => 'suppler@suppler.suppler',
-//             'email_verified_at' => now(),
-//             'password' => Hash::make('123456789'),
-//         ]);
-//         $suppler->supplier()->create([
-//             'id' => $suppler->id,
-//             'admin_id' => $admin->id,
-// //            "phone" => "012345678923456789",
-
-//             'phone_number' => '0123456789',
-//             'status' => SupplierStatus::Approved->value,
-//         ]);
-//         $suppler->assignRole(UserRoles::Supplier->value);
+             'email' => 'charity@charity.charity',
+             'email_verified_at' => now(),
+             'password' => Hash::make('123456789'),
+         ]);
+         $charity->charity()->create([
+             'id' => $charity->id,
+             'admin_id' => $admin->id,
+             'phone_number' => '0123456789',
+         ]);
+         $charity->assignRole(UserRoles::Charity->value);
 
 
-//         $roles = [UserRoles::Admin->value, UserRoles::Supplier->value, UserRoles::Charity->value];
-//         User::factory(10)->create()->each(function ($user) use ($roles) {
-//             $user->assignRole(fake()->randomElement($roles));
-//         });
+         $suppler = User::create([
+             'name' => 'Supplier',
+             "phone" => "0123456789",
+
+             'email' => 'suppler@suppler.suppler',
+             'email_verified_at' => now(),
+             'password' => Hash::make('123456789'),
+         ]);
+         $suppler->supplier()->create([
+             'id' => $suppler->id,
+             'admin_id' => $admin->id,
+ //            "phone" => "012345678923456789",
+
+             'phone_number' => '0123456789',
+             'status' => SupplierStatus::Approved->value,
+         ]);
+         $suppler->assignRole(UserRoles::Supplier->value);
+
+
+         $roles = [UserRoles::Admin->value, UserRoles::Supplier->value, UserRoles::Charity->value];
+         User::factory(10)->create()->each(function ($user) use ($roles) {
+             $user->assignRole(fake()->randomElement($roles));
+         });
 
     }
 }
