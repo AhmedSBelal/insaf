@@ -21,7 +21,7 @@ class CategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            'admin_id' => 2,
+            'admin_id' => Admin::inRandomOrder()->value('id') ?? Admin::factory(),
             'name' => $this->faker->word(),
             'description' => $this->faker->sentence(),
         ];

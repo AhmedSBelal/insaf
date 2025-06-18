@@ -26,7 +26,7 @@ class Surplus extends Model
         'status',
     ];
 
-    // relation ships
+    // relationships
     public function supplier(): BelongsTo
     {
         return $this->belongsTo(Supplier::class);
@@ -49,18 +49,6 @@ class Surplus extends Model
 
     public function location() :MorphOne{
         return $this->morphOne(Location::class, 'locationable');
-    }
-
-    public function cartItems()
-    {
-        return $this->hasMany(CartItem::class);
-    }
-
-    public function orders()
-    {
-        return $this->belongsToMany(Order::class, 'order_surplus')
-            ->withPivot(['quantity', 'price', 'surplus_name'])
-            ->withTimestamps();
     }
 
 
@@ -118,5 +106,9 @@ class Surplus extends Model
         return $query->paginate(16);
     }
 
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'order_surplus');
+    }
 
 }

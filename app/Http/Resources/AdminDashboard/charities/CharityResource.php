@@ -22,6 +22,10 @@ class CharityResource extends JsonResource
         if (!$this->resource) {
             return [];
         }
+<<<<<<< HEAD
+//        dd($this->locations);
+=======
+>>>>>>> master
 
         return [
             'id' => $this->id,
@@ -29,7 +33,13 @@ class CharityResource extends JsonResource
             'email' => $this->info->email ?? null,
             'phone' => $this->phone_number ?? null,
             'commercial_registers' => $this->imageResource($this->commercialRegisters->url ?? null),
+<<<<<<< HEAD
+            'status' => $this->status,
+            'location' => $this->locations ?? [],
+            'password' => "*****************"
+=======
             'status' => $this->status
+>>>>>>> master
         ];
     }
 }

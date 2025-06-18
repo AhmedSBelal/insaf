@@ -15,7 +15,7 @@ class AuthController extends Controller
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
-            'remember' => 'boolean', // Optional: Add validation for "remember" field
+            'remember' => 'boolean' // Optional: Add validation for "remember" field
         ]);
 
         // Manually verify credentials using the User model

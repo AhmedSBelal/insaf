@@ -59,6 +59,9 @@ class Supplier extends Model
         if (isset($filter['status'])) {
             $query->where('status', $filter['status']);
         }
+        if (isset($filter['type'])) {
+            $query->where('type', $filter['type']);
+        }
 
         // Filter on related info table
 //        if (isset($filters['status'])) {
@@ -70,5 +73,11 @@ class Supplier extends Model
         return $query->paginate(16);
 
     }
+
+    public  function location()
+    {
+        return $this->morphOne(Location::class, 'locationable');
+    }
+
 
 }

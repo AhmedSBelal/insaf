@@ -22,4 +22,7 @@ class Image extends Model
         return $this->morphTo();
     }
 
+    public function getPathUrlAttribute() {
+        return asset('storage/' . $this->url);
+    }
 }

@@ -4,17 +4,20 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use App\Enums\ImageType;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Enums\ImageType;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Testing\Fluent\Concerns\Has;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -30,6 +33,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $fillable = [
         'name',
         'email',
+        'phone',
         'password',
     ];
 
@@ -80,6 +84,10 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function supplier(): HasOne {
         return $this->hasOne(Supplier::class, 'supplier_id', 'id');
+    }
+
+    public function is_supplier(): bool {
+        return $this->supplier()->exists();
     }
 
     public function charity(): HasOne {
@@ -135,5 +143,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+
+    public function getPermissionFromRoles(){
+        return $this->roles->first()->permissions;
     }
 }

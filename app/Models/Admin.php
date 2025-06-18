@@ -15,6 +15,9 @@ class Admin extends Model
         'type',
     ];
 
+    public function info() : BelongsTo {
+        return $this->belongsTo(User::class, 'admin_id', 'id');
+    }
     // relations
     public function users(): BelongsTo
     {
@@ -40,5 +43,7 @@ class Admin extends Model
     {
         return $this->hasMany(Category::class, 'admin_id', 'admin_id');
     }
+
+
 
 }

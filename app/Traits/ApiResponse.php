@@ -12,10 +12,11 @@ trait ApiResponse
         ], $code);
     }
 
-    public function failureResponse($message = "failure", $code = 500) {
+    public function failureResponse($message = "failure", $code = 500 , $data = []) {
         return response()->json([
             'success' => false,
             'message' => $message,
+            'data' => $data,
         ], $code);
     }
 

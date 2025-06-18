@@ -23,8 +23,8 @@ class SurplusFactory extends Factory
     public function definition(): array
     {
         return [
-            'supplier_id' => Supplier::first()->value('supplier_id') ?? Supplier::factory(),
-            'admin_id' => Admin::first()->value('admin_id') ?? Admin::factory(),
+            'supplier_id' => Supplier::inRandomOrder()->value('id') ?? Supplier::factory(),
+            'admin_id' => Admin::inRandomOrder()->value('id') ?? Admin::factory(),
             'category_id' => Category::inRandomOrder()->value('id') ?? Category::factory(),
             'name' => $this->faker->word(),
             'description' => $this->faker->paragraph(),

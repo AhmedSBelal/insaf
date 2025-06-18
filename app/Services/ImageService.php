@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Enums\ImageType;
-use App\Models\Charity;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -77,7 +76,7 @@ class ImageService
 
         } catch (\Exception $e) {
             Log::error("Commercial register deletion failed: " . $e->getMessage());
-            return false;
+            throw $e;
         }
     }
 
