@@ -20,7 +20,7 @@ class ImageService
         ]);
     }
 
-    public static function storeCommercialRegisters($file, $user) {
+    public static function storeCommercialRegisters($file, Charity $user) {
         $path = $file->store('images', 'public');
         return $user->commercialRegisters()->create([
             'url' => $path,
@@ -113,12 +113,51 @@ class ImageService
 
     }
 
-    public function profileImage($file, User $user, $type) {
+    public static function storeProfileImage($file, User $user) {
         $path = $file->store('images', 'public');
         return $user->profileImage()->create([
             'url' => $path,
-            'type' => $type
+            'type' => ImageType::Profile->value,
         ]);
+    }
+
+    public static function deleteImage($image): bool
+    {
+        if (!$image) {
+            return true; // No image to delete is not an error
+        }
+
+        try {
+            Storage::disk('public')->delete($image->url);
+            return $image->delete();
+        } catch (\Exception $e) {
+            // Log the error if needed
+            // \Log::error("Failed to delete image: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public static function updateProfileImage($file, User $user)
+    {
+        // Delete existing image if it exists
+        if ($user->profileImage && !self::deleteImage($user->profileImage)) {
+            return false;
+        }
+
+        try {
+            $path = $file->store('images', 'public');
+
+            $user->profileImage()->create([
+                'url' => $path,
+                'type' => ImageType::Profile->value,
+            ]);
+
+            return true;
+        } catch (\Exception $e) {
+            // Log the error if needed
+            // \Log::error("Failed to update profile image: " . $e->getMessage());
+            return false;
+        }
     }
 
 }

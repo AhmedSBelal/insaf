@@ -5,6 +5,7 @@ namespace App\Enums;
 enum OrderStatus : string
 {
     case Pending = 'Pending';
+<<<<<<< HEAD
     case Completed = 'Completed';
     case Cancelled = 'Cancelled';
 
@@ -12,4 +13,12 @@ enum OrderStatus : string
     {
         return implode(',', array_map(fn($status) => $status->value, self::cases()));
     }
+=======
+    case Processing = 'Processing';
+    case Delivering = 'Delivering';
+    case Completed = 'Completed';
+    case Cancelled = 'Cancelled';
+    case Refunded = 'Refunded';
+    const Confirmed = 'Confirmed';
+>>>>>>> master
 }

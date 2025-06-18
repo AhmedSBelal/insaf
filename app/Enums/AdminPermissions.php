@@ -17,6 +17,7 @@ enum AdminPermissions : string
     case DeleteCharity = 'DeleteCharity';
     case ApproveCharity = 'ApproveCharity';
     case ReplyOnContactMessages = 'ReplyOnContactMessages';
+<<<<<<< HEAD
     case ShowContactMessages = 'ShowContactMessages';
     case ShowAdmins = 'ShowAdmins';
     case ShowAdminDetails = 'ShowAdminDetails';
@@ -24,6 +25,8 @@ enum AdminPermissions : string
     case DeleteAdmin = 'DeleteAdmin';
 
 
+=======
+>>>>>>> master
 
     public static function values(): array{
         return array_column(self::cases(), 'value');

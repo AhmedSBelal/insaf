@@ -45,6 +45,7 @@ class Supplier extends Model
         return $this->morphOne(Image::class, 'imageable');
     }
 
+
     // methods
     public function isApproved() : bool {
         return $this->status == CharityStatus::Approved->value ?? false;

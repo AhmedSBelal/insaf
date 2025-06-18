@@ -8,4 +8,8 @@ enum PaymentMethodes : string
     case Paypal = 'paypal';
     case Paytm = 'paytm';
     case Paymob = 'paymob';
+<<<<<<< HEAD
+=======
+    case Cash = 'cash';
+>>>>>>> master
 }
