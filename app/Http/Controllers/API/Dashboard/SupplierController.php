@@ -106,27 +106,17 @@ class SupplierController extends Controller
     }
 
     public function destroy($id){
-<<<<<<< HEAD
 //        dd($id);
         if (!Auth::user()->can(AdminPermissions::DeleteSupplier->value, 'api')) {
             return $this->failureResponse('Unauthorized access', 403);
         }
 
-=======
-        if (!Auth::user()->can(AdminPermissions::DeleteSupplier->value, 'api')) {
-            return $this->failureResponse('Unauthorized access', 403);
-        }
->>>>>>> master
         DB::beginTransaction();
         try{
             $supplier = User::with(['supplier'])->find($id);
             if (!$supplier) {
                 return $this->failureResponse('Supplier not found', 404);
             }
-<<<<<<< HEAD
-
-=======
->>>>>>> master
             ImageService::deleteCommercialRegisters($supplier->supplier);
             ImageService::deleteHealthCertificate($supplier->supplier);
             $supplier->delete();
