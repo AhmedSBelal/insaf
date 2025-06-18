@@ -44,6 +44,7 @@ class CharityController extends Controller
 
             $data['role'] = UserRoles::Charity->value;
             $user = $this->userService->createUser($data);
+//            dd($user);
 
             if (!$user) {
                 return $this->failureResponse('Something went wrong, try again later 0');
