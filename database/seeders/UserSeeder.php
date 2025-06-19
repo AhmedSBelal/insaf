@@ -73,7 +73,7 @@ class UserSeeder extends Seeder
          ]);
          $suppler->supplier()->create([
              'id' => $suppler->id,
-             'admin_id' => $admin->id,
+             'admin_id' => 1,
  //            "phone" => "012345678923456789",
 
              'phone_number' => '0123456789',

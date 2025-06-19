@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Admin;
 use App\Models\Charity;
 use App\Models\Image;
 use App\Models\Notification;
@@ -21,40 +22,42 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-             RolesSeeder::class,
-             PermissionsSeeder::class,
-             AssignPermissionsToRoles::class,
-             UserSeeder::class,
-             CategoriesSeeder::class,
-             SurplusesSeeder::class,
+            //  RolesSeeder::class,
+            //  PermissionsSeeder::class,
+            //  AssignPermissionsToRoles::class,
+            //  UserSeeder::class,
+            //  CategoriesSeeder::class,
+            //  SurplusesSeeder::class,
 
         ]);
 
         // Charity::create([
-        //     'id' => 1,
-        //     'admin_id' => 1,
-        //     'name' => 'Charity One',
+        //     'id' => 3,
+        //     'admin_id' => 2,
+        //     'charity_id' => 1,
         //     'phone_number' => '0123456789',
         //     'status' => 'approved',
+
         // ]);
         // Charity::create([
-        //     'id' => 2,
-        //     'admin_id' => 1,
-        //     'name' => 'Charity Two',
-        //     'phone_number' => '0987654321',
+        //     'id' => 4,
+        //     'admin_id' => 2,
+        //     'charity_id' => 2,
+        //     'phone_number' => '0123456789',
         //     'status' => 'approved',
+
         // ]);
         // Order::create([
         //     'charity_id' => 3,
         //     'payment_id' => 1,
         //     'total_price' => 1000,
-        //     'status' => 'pending',
+        //     'status' => 'Pending',
         // ]);
 
         // Notification::create([
-        //     'id' => 1,
-        //     "type" => "order",
-        //     "notifiable_type" => "App\Models\Order",
+        //     'id' => 2,
+        //     "type" => "charity",
+        //     "notifiable_type" => "App\Models\Charity",
         //     "notifiable_id" => 2,
         //     "data" => json_encode([
         //         "message" => "New order has been placed",
@@ -75,11 +78,13 @@ class DatabaseSeeder extends Seeder
         //     'imageable_id' => 1,
         //     'type' => 'health_certificate',
         //     'url' => 'images/supplier/health_certificate.jpg',
-        // ]);
+        // ])
+
+
 
         // Supplier::create([
         //     'supplier_id' => 4,
-        //     'admin_id' => 2,
+        //     'admin_id' => Admin::first()->id,
         //     'phone_number' => '0123456789',
         //    'status' => "Approved",
         //    "type" => "factory",
@@ -87,26 +92,22 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create()->each(function ($user) {
         //     $user->assignRole('supplier');
         // });
-    //     Payment::create([
-    //         'trnasaction_id' => '123456789',
-    //         'amount' => 1000,
-    //         'payment_method' => 'credit_card',
+        Payment::create([
+            'transaction_id' => '123456789',
+            'amount' => 1000,
+            'payment_method' =>  "stripe",
 
-    //     ]);
-    //    Order::create([
-    //         'charity_id' => 3,
-    //         'payment_id' => 1,
-    //         'total_price' => 1000,
-    //         'status' => 'pending',
-    //     ]);
+        ]);
+       Order::create([
+            'charity_id' => Charity::first()->id,
+            'payment_id' => Payment::first()->id,
+            'total_price' => 1000,
+            'status' => 'Pending',
+        ]);
 
         // Surplus::factory(10)->create()->each(function ($surplus) {
-        //     $surplus->supplier()->associate(Supplier::inRandomOrder()->first());
+        //     $surplus->charity()->associate(Charity::inRandomOrder()->first());
         //     $surplus->save();
         // });
-        // \App\Models\User::factory(10)->create()->each(function ($user) {
-        //     $user->assignRole('supplier');
-        // });
-        // \App\Models\User::factory(10)->create()->each(function ($user) {
-    }
+}
 }

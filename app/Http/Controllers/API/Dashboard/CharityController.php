@@ -7,7 +7,6 @@ use App\Enums\CharityStatus;
 use App\Enums\SupplierStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminDashboard\charities\CharitySearchRequest;
-use App\Http\Requests\AdminDashboard\suppliers\SupplierSearchRequest;
 use App\Http\Requests\AdminDashboard\suppliers\SupplierUpdateRequest;
 use App\Http\Resources\AdminDashboard\charities\CharityCollection;
 use App\Http\Resources\AdminDashboard\charities\CharityResource;

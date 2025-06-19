@@ -38,6 +38,7 @@ class SurplusController extends Controller
         try {
             $data = $request->validated();
             $data['supplier_id'] = Auth::id();
+            
 
         } catch (\Exception $exception) {
             Log::error('store surplus' . $exception->getMessage());

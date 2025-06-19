@@ -25,7 +25,6 @@ class StoreProductRequest extends FormRequest
      */
     public function rules(): array
     {
-        // dd();
         $rules =  [
             'name' => 'required|string|max:255',
             'description' => 'required|string',
@@ -36,6 +35,7 @@ class StoreProductRequest extends FormRequest
             'images' => 'required|array',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
+        // dd("h");
 
         $this->method() == 'PUT' ? $rules['images'] = 'nullable|array' : null;
         $this->method() == 'PUT' ? $rules['images.*'] = 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048' : null;

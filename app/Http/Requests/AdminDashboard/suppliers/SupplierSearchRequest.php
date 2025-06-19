@@ -4,10 +4,7 @@ namespace App\Http\Requests\AdminDashboard\suppliers;
 
 use App\Enums\AdminPermissions;
 use App\Enums\SupplierStatus;
-<<<<<<< HEAD
 use App\Enums\SuppliersType;
-=======
->>>>>>> master
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -31,10 +28,7 @@ class SupplierSearchRequest extends FormRequest
     {
         return [
             'status' => ['nullable', Rule::in(SupplierStatus::values())],
-<<<<<<< HEAD
             'type' =>['nullable' , Rule::in(SuppliersType::values())],
-=======
->>>>>>> master
         ];
     }
 }

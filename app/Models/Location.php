@@ -9,7 +9,7 @@ class Location extends Model
 {
 
     protected $fillable = [
-        'physical_location', 'latitude', 'longitude',
+        'physical_location', 'latitude', 'longitud',
     ];
 
     // relations

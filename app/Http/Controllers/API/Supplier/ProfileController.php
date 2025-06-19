@@ -16,11 +16,11 @@ class ProfileController extends APIBaseController
 {
     public function me(Request $request)
     {
+        // dd("hi");
         $user = $request->user();
         $user->load(['supplier' , 'roles']);
 
-        // dd($user);
-        // return $user;
+
 
         return $this->successResponse(new ProfileResource($user), "Profile retrieved successfully");
     }

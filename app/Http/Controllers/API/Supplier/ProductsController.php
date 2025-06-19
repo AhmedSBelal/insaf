@@ -7,8 +7,8 @@ use App\Http\Controllers\APIBaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\Supplier\StoreProductRequest;
 use App\Http\Resources\API\Supplier\ProductsResource;
+use App\Models\Location;
 use Illuminate\Http\Request;
-use Stevebauman\Location\Facades\Location;
 
 class ProductsController extends APIBaseController
 {

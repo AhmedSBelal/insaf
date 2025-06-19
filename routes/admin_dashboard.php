@@ -20,6 +20,7 @@ Route::prefix('admin')
         Route::get("/overview" , [AdminController::class, 'overview'])
             ->name('overview');
         Route::get('/admins', [\App\Http\Controllers\API\Dashboard\AdminController::class, 'index'])->name('admins.index');
+       
         Route::resource('suppliers', SupplierController::class);
 
         Route::resource('charities', CharityController::class);
