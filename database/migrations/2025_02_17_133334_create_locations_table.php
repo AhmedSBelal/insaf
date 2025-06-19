@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
-            $table->string('physical_location');
+            $table->string('physical_location')->nullable();
+            $table->float('latitude')->nullable();
+            $table->float('longitude')->nullable();
             $table->morphs('locationable');
             $table->timestamps();
         });

@@ -6,6 +6,7 @@ use App\Enums\CharityStatus;
 use App\Enums\ImageType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
@@ -61,6 +62,10 @@ class Charity extends Model
 
         return $query->paginate(16);
 
+    }
+
+    public function rating () : HasMany {
+        return $this->hasMany(SupplierRating::class, 'charity_id', 'id');
     }
 
 }

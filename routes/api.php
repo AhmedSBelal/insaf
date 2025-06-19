@@ -6,6 +6,7 @@ use App\Http\Controllers\API\APP\ContactController;
 use App\Http\Controllers\API\APP\NotificationSettingController;
 use App\Http\Controllers\API\APP\PaymentController;
 use App\Http\Controllers\API\APP\StripeWebhookController;
+use App\Http\Controllers\API\APP\SupplierRatingController;
 use App\Http\Controllers\API\APP\SurplusController;
 use Illuminate\Support\Facades\Route;
 
@@ -55,3 +56,10 @@ Route::prefix('notification-settings')->middleware('auth:sanctum')->group(functi
 
 // delete account
 Route::delete('delete-account', [App\Http\Controllers\API\APP\DeleteAccountController::class, 'destroy'])->middleware('auth:sanctum');
+
+
+// rating
+Route::middleware(['auth:sanctum', 'role:charity'])->prefix('charity')->group(function () {
+    Route::post('/supplier-ratings', [SupplierRatingController::class, 'store']);
+    Route::get('/supplier-ratings', [SupplierRatingController::class, 'index']);
+});

@@ -55,7 +55,7 @@ class CharityController extends Controller
             }
 
             ImageService::storeCommercialRegisters($request->file('commercial_register'), $charity);
-            LocationService::storeLocation($data['location'], $charity);
+            LocationService::storeLocation($data['location'], $user);
             if (!$this->verifyEmailService->send($user)) {
                 return $this->failureResponse('Something went wrong, try again later 2');
             }

@@ -79,5 +79,10 @@ class Supplier extends Model
         return $this->morphOne(Location::class, 'locationable');
     }
 
+    public function rating()
+    {
+        return $this->hasMany(SupplierRating::class, 'supplier_id', 'id');
+    }
+
 
 }

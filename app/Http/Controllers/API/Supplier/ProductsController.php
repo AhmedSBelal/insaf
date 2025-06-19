@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\Supplier\StoreProductRequest;
 use App\Http\Resources\API\Supplier\ProductsResource;
 use Illuminate\Http\Request;
+use Stevebauman\Location\Facades\Location;
 
 class ProductsController extends APIBaseController
 {
@@ -66,6 +67,14 @@ class ProductsController extends APIBaseController
                 ]);
             }
         }
+
+        $location = Location::get();
+        // add location for surplus
+        $product->location()->create([
+            'physical_location' => null,
+            'latitude' => $location->latitude ?? null,
+            'longitude' => $location->longitude ?? null,
+        ]);
 
         return $this->successResponse(
             new ProductsResource($product),
