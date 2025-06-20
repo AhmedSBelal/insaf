@@ -64,10 +64,48 @@ class UserSeeder extends Seeder
 
 
          $suppler = User::create([
-             'name' => 'Supplier',
+             'name' => 'Restaurant',
              "phone" => "0123456789",
 
              'email' => 'suppler@suppler.suppler',
+             'email_verified_at' => now(),
+             'password' => Hash::make('123456789'),
+         ]);
+          $suppler->supplier()->create([
+             'id' => $suppler->id,
+             'admin_id' => 1,
+ //            "phone" => "012345678923456789",
+
+             'phone_number' => '0123456789',
+             'status' => SupplierStatus::Approved->value,
+         ]);
+         $suppler->assignRole(UserRoles::Supplier->value);
+
+
+         $suppler = User::create([
+             'name' => 'Market',
+             "phone" => "0123456789",
+
+             'email' => 'market@market.suppler',
+             'email_verified_at' => now(),
+             'password' => Hash::make('123456789'),
+         ]);
+          $suppler->supplier()->create([
+             'id' => $suppler->id,
+             'admin_id' => 1,
+ //            "phone" => "012345678923456789",
+
+             'phone_number' => '0123456789',
+             'status' => SupplierStatus::Approved->value,
+         ]);
+         $suppler->assignRole(UserRoles::Supplier->value);
+
+
+         $suppler = User::create([
+             'name' => 'Factory',
+             "phone" => "0123456789",
+
+             'email' => 'factory@suppler.suppler',
              'email_verified_at' => now(),
              'password' => Hash::make('123456789'),
          ]);
