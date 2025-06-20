@@ -27,8 +27,7 @@ class SupplierRatingController extends Controller
 
     public function index()
     {
-        $ratings = SupplierRating::with('supplier')->where('charity_id', auth()->id())->get();
-
+        $ratings = SupplierRating::with(['supplier', 'charity'])->get();
         return response()->json([
             'data' => $ratings
         ]);
