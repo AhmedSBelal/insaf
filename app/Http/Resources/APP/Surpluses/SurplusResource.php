@@ -41,8 +41,8 @@ class SurplusResource extends JsonResource
             'price' => $this->price,
             'expire_date' => $this->expire_date,
             'images' => $this->imagesResource(),
-            'location' => $this->location->physical_location,
-            'supplier_name' => $this->supplier->info->name,
+            'location' => $this->location->physical_location ?? "No Location",
+            'supplier' => $this->supplier->info,
         ];
     }
 }

@@ -29,3 +29,6 @@ Route::get('categories' , CategoriesController::class);
 //Orders Controller
 Route::get('orders' , [Orderscontroller::class, 'index']);
 Route::put('orders/{id}/status' , [Orderscontroller::class, 'updateStatus']);
+
+
+
