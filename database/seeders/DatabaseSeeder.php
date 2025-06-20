@@ -11,6 +11,7 @@ use App\Models\Payment;
 use App\Models\Supplier;
 use App\Models\Surplus;
 use App\Models\User;
+
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -22,12 +23,12 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            //  RolesSeeder::class,
-            //  PermissionsSeeder::class,
-            //  AssignPermissionsToRoles::class,
-            //  UserSeeder::class,
-            //  CategoriesSeeder::class,
-            //  SurplusesSeeder::class,
+            RolesSeeder::class,
+            PermissionsSeeder::class,
+            AssignPermissionsToRoles::class,
+            UserSeeder::class,
+            CategoriesSeeder::class,
+            SurplusesSeeder::class,
 
         ]);
 
@@ -81,7 +82,6 @@ class DatabaseSeeder extends Seeder
         // ])
 
 
-
         // Supplier::create([
         //     'supplier_id' => 4,
         //     'admin_id' => Admin::first()->id,
@@ -95,10 +95,10 @@ class DatabaseSeeder extends Seeder
         Payment::create([
             'transaction_id' => '123456789',
             'amount' => 1000,
-            'payment_method' =>  "stripe",
+            'payment_method' => "stripe",
 
         ]);
-       Order::create([
+        Order::create([
             'charity_id' => Charity::first()->id,
             'payment_id' => Payment::first()->id,
             'total_price' => 1000,
@@ -109,5 +109,5 @@ class DatabaseSeeder extends Seeder
         //     $surplus->charity()->associate(Charity::inRandomOrder()->first());
         //     $surplus->save();
         // });
-}
+    }
 }
