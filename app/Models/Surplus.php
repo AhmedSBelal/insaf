@@ -83,9 +83,10 @@ class Surplus extends Model
         if ($status) {
             $query->where('status', $status);
         }
-
+        
+        // dd($attributes);
         if (isset($attributes['title'])) {
-            $query->where('title', 'like', '%' . $attributes['title'] . '%');
+            $query->where('name', 'like', '%' . $attributes['title'] . '%');
         }
         if (isset($attributes['description'])) {
             $query->where('description', 'like', '%' . $attributes['description'] . '%');

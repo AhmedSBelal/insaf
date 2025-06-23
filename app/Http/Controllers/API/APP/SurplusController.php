@@ -21,7 +21,7 @@ class SurplusController extends Controller
      */
     public function index(SurplusSearchRequest $request)
     {
-        $data = $request->validated();
+        $data = $request->all();
         // get all approved surpluses
         $surpluses = Surplus::searchSurpluses($data, SurplusStatus::Approved->value);
         return $this->successResponse(new SurplusCollection($surpluses), 'Surpluses retrieved successfully.');
